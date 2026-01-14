@@ -18,6 +18,7 @@ class _HomeViewState extends State<HomeView> {
   //定义接受数据的变量
   List<BannerItem> _bannerList = [];
   List<CategoryItem> _categoryList = [];
+  List<SpecialRecommendResult> _getProductList = [];
 
   //获取轮播图数据
   void _getBannerList() async {
@@ -27,9 +28,15 @@ class _HomeViewState extends State<HomeView> {
   }
 
   //获取商品列表数据
-  void _getGoodsList() async {
+  void _getCategoryList() async {
     _categoryList = await getCategoryListAPI();
     print(_categoryList);
+    setState(() {});
+  }
+
+  // 获取特惠推荐数据
+  void _getSuggestionList() async {
+    _getProductList = await getProductListAPI();
     setState(() {});
   }
 
@@ -39,7 +46,9 @@ class _HomeViewState extends State<HomeView> {
     //获取轮播图数据
     _getBannerList();
     //获取商品列表数据
-    _getGoodsList();
+    _getCategoryList();
+    // 获取特惠推荐数据
+    _getSuggestionList();
   }
 
   //获取滚动容器的内容

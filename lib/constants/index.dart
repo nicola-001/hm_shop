@@ -12,4 +12,7 @@ class HttpConstants {
 
   //商品列表地址
   static const String CATEGORY_LIST = "/home/category/head";
+
+  // 特惠推荐
+  static const String SPECIAL_RECOMMEND = "/hot/preference";
 }
