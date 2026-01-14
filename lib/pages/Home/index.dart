@@ -18,7 +18,11 @@ class _HomeViewState extends State<HomeView> {
   //定义接受数据的变量
   List<BannerItem> _bannerList = [];
   List<CategoryItem> _categoryList = [];
-  List<SpecialRecommendResult> _getProductList = [];
+  SpecialRecommendResult _getProductList = SpecialRecommendResult(
+    id: "",
+    title: "",
+    subTypes: [],
+  );
 
   //获取轮播图数据
   void _getBannerList() async {
@@ -64,7 +68,9 @@ class _HomeViewState extends State<HomeView> {
       // 间距
       SliverToBoxAdapter(child: SizedBox(height: 10)),
       // 推荐
-      SliverToBoxAdapter(child: HmSuggestion()),
+      SliverToBoxAdapter(
+        child: HmSuggestion(specialRecommendResult: _getProductList),
+      ),
       // 间距
       SliverToBoxAdapter(child: SizedBox(height: 10)),
       // 推荐

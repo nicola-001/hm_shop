@@ -25,12 +25,12 @@ Future<List<CategoryItem>> getCategoryListAPI() async {
 }
 
 //封装特惠推荐列表
-Future<List<SpecialRecommendResult>> getProductListAPI() async {
+Future<SpecialRecommendResult> getProductListAPI() async {
   var response = await dioRequest.handleResponse(
     await dioRequest.get(HttpConstants.SPECIAL_RECOMMEND),
   );
 
   // API 返回的是单个对象，不是数组，所以需要包装成数组
-  return [SpecialRecommendResult.fromJson(response as Map<String, dynamic>)];
+  return SpecialRecommendResult.fromJson(response as Map<String, dynamic>);
 }
 
