@@ -2,6 +2,12 @@
 import 'package:dio/dio.dart';
 import 'package:hm_shop/constants/index.dart';
 
+// dio请求工具发出请求 返回的数据 Response<dynamic>.data
+// 把所有的接口的data解放出来 拿到真正的数据 要判断业务状态码是不是等于1
+
+//单例对象
+final dioRequest = DioRequest();
+
 class DioRequest {
   final _dio = Dio();
 
@@ -62,8 +68,3 @@ class DioRequest {
   }
 }
 
-//单例对象
-final dioRequest = DioRequest();
-
-// dio请求工具发出请求 返回的数据 Response<dynamic>.data
-// 把所有的接口的data解放出来 拿到真正的数据 要判断业务状态码是不是等于1

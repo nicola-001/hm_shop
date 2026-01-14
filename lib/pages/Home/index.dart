@@ -15,6 +15,10 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  //定义接受数据的变量
+  List<BannerItem> _bannerList = [];
+  List<CategoryItem> _categoryList = [];
+
   //获取轮播图数据
   void _getBannerList() async {
     _bannerList = await getBannerListAPI();
@@ -22,13 +26,21 @@ class _HomeViewState extends State<HomeView> {
     setState(() {});
   }
 
+  //获取商品列表数据
+  void _getGoodsList() async {
+    _categoryList = await getCategoryListAPI();
+    print(_categoryList);
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
+    //获取轮播图数据
     _getBannerList();
+    //获取商品列表数据
+    _getGoodsList();
   }
-
-  List<BannerItem> _bannerList = [];
 
   //获取滚动容器的内容
   List<Widget> _getScrollChildren() {
@@ -39,7 +51,7 @@ class _HomeViewState extends State<HomeView> {
       // 间距
       SliverToBoxAdapter(child: SizedBox(height: 10)),
       //商品分类组件
-      SliverToBoxAdapter(child: HmCategory()),
+      SliverToBoxAdapter(child: HmCategory(categoryList: _categoryList)),
       // 间距
       SliverToBoxAdapter(child: SizedBox(height: 10)),
       // 推荐

@@ -11,5 +11,5 @@ class HttpConstants {
   static const String BANNER_LIST = "/home/banner";
 
   //商品列表地址
-  static const String CATEGORY_LIST = "/home/category/head ";
+  static const String CATEGORY_LIST = "/home/category/head";
 }
