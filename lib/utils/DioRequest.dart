@@ -8,9 +8,9 @@ class DioRequest {
   //基础拦截器
   DioRequest() {
     _dio.options
-      ..baseUrl = GlobalContanstant.BASE_URL
-      ..connectTimeout = Duration(seconds: GlobalContanstant.TIME_OUT)
-      ..receiveTimeout = Duration(seconds: GlobalContanstant.TIME_OUT);
+      ..baseUrl = GlobalConstants.BASE_URL
+      ..connectTimeout = Duration(seconds: GlobalConstants.TIME_OUT)
+      ..receiveTimeout = Duration(seconds: GlobalConstants.TIME_OUT);
     //添加拦截器
     _addInterceptor();
   }
@@ -50,7 +50,7 @@ class DioRequest {
     try {
       Response<dynamic> res = await task;
       final data = res.data as Map<String, dynamic>;
-      if (data['code'] == GlobalContanstant.SUCCESS_CODE) {
+      if (data['code'] == GlobalConstants.SUCCESS_CODE) {
         //http状态和业务状态正常-能正常通过
         return data['result'];
       } else {
