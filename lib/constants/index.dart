@@ -15,4 +15,10 @@ class HttpConstants {
 
   // 特惠推荐
   static const String SPECIAL_RECOMMEND = "/hot/preference";
+
+  //爆款推荐地址
+  static const String IN_VOGUE_LIST = "/hot/inVogue";
+
+  //一站买全地址
+  static const String ONE_SHOP_API = "/hot/oneStop";
 }

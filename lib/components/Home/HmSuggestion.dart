@@ -54,6 +54,7 @@ class _HmSuggestionState extends State<HmSuggestion> {
 
   //取前三条数据
   List<GoodsItem> _getDisplayItems() {
+    //判断数据是否为空
     if (widget.specialRecommendResult.subTypes.isEmpty) {
       return [];
     }

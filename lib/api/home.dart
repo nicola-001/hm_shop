@@ -34,3 +34,20 @@ Future<SpecialRecommendResult> getProductListAPI() async {
   return SpecialRecommendResult.fromJson(response as Map<String, dynamic>);
 }
 
+//封装爆品推荐
+Future<SpecialRecommendResult> getInVogueListAPI() async {
+  return SpecialRecommendResult.fromJson(
+    await dioRequest.handleResponse(
+      await dioRequest.get(HttpConstants.IN_VOGUE_LIST),
+    ),
+  );
+}
+
+//封装一站买全
+Future<SpecialRecommendResult> getOneStopListAPI() async {
+  return SpecialRecommendResult.fromJson(
+    await dioRequest.handleResponse(
+      await dioRequest.get(HttpConstants.ONE_SHOP_API),
+    ),
+  );
+}

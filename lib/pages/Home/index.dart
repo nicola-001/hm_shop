@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:hm_shop/api/home.dart';
 import 'package:hm_shop/components/Home/HmCategory.dart';
-import 'package:hm_shop/components/Home/HmHot.dart';
 import 'package:hm_shop/components/Home/HmMoreList.dart';
 import 'package:hm_shop/components/Home/HmSlider.dart';
 import 'package:hm_shop/components/Home/HmSuggestion.dart';
 import 'package:hm_shop/viewmodels/Home.dart';
+import '../../components/Home/HmHot.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -19,6 +19,16 @@ class _HomeViewState extends State<HomeView> {
   List<BannerItem> _bannerList = [];
   List<CategoryItem> _categoryList = [];
   SpecialRecommendResult _getProductList = SpecialRecommendResult(
+    id: "",
+    title: "",
+    subTypes: [],
+  );
+  SpecialRecommendResult _inVogueResult = SpecialRecommendResult(
+    id: "",
+    title: "",
+    subTypes: [],
+  );
+  SpecialRecommendResult _oneStopResult = SpecialRecommendResult(
     id: "",
     title: "",
     subTypes: [],
@@ -44,6 +54,18 @@ class _HomeViewState extends State<HomeView> {
     setState(() {});
   }
 
+  //获取爆品推荐列表数据
+  void _getInVogueList() async {
+    _inVogueResult = await getInVogueListAPI();
+    setState(() {});
+  }
+
+  //获取一站买全数据列表
+  void _getOneStopList() async {
+    _oneStopResult = await getOneStopListAPI();
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
@@ -53,6 +75,10 @@ class _HomeViewState extends State<HomeView> {
     _getCategoryList();
     // 获取特惠推荐数据
     _getSuggestionList();
+    //获取爆品推荐列表数据
+    _getInVogueList();
+    //获取一站买全数据列表
+    _getOneStopList();
   }
 
   //获取滚动容器的内容
@@ -80,9 +106,14 @@ class _HomeViewState extends State<HomeView> {
           child: Flex(
             direction: Axis.horizontal,
             children: [
-              Expanded(child: HmHot()),
+              Expanded(
+                child: HmHot(result: _inVogueResult, type: "hot"),
+              ),
               SizedBox(width: 10),
-              Expanded(child: HmHot()),
+              Expanded(
+                child: HmHot(result: _oneStopResult, type: "step"),
+              ),
+
             ],
           ),
         ),
