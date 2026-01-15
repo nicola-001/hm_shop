@@ -4,8 +4,10 @@ import 'package:hm_shop/viewmodels/Home.dart';
 class HmHot extends StatefulWidget {
   // 热榜推荐
   final SpecialRecommendResult result;
+
   // 类型
   final String type;
+
   // 一站式推荐
   HmHot({Key? key, required this.result, required this.type}) : super(key: key);
 
@@ -14,7 +16,11 @@ class HmHot extends StatefulWidget {
 }
 
 class _HmHotState extends State<HmHot> {
-  // 获取前两条数据
+  // 获取前两条数据--计算属性
+  /*
+  * 计算属性使用.xxx可以调用
+  * 方法：()
+  * */
   List<GoodsItem> get _items {
     // 判断数据是否为空，若为空则返回空列表
     if (widget.result.subTypes.isEmpty) {
