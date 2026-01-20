@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:hm_shop/api/User.dart';
 import 'package:hm_shop/utils/ToastUtils.dart';
 /*
 *
@@ -133,6 +135,21 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  // 登录逻辑
+  void _login() async {
+    try {
+      final res = await loginAPI({
+        "account": _phoneController.text,
+        "password": _codeController.text,
+      });
+      print(res);
+      Toastutils.showToast(context, "登录成功");
+      Navigator.of(context).pop();
+    } catch (e) {
+      Toastutils.showToast(context, (e as DioException).message);
+    }
+  }
+
   // 登录按钮Widget
   Widget _buildLoginButton() {
     return SizedBox(
@@ -143,8 +160,7 @@ class _LoginPageState extends State<LoginPage> {
           // 登录逻辑
           if (_key.currentState!.validate()) {
             if (_isChecked) {
-              // 登录成功
-              Toastutils.showToast(context, "登录成功");
+              _login();
             } else {
               // 登录失败
               Toastutils.showToast(context, "请先阅读并同意隐私条款和用户协议");

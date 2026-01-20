@@ -1,0 +1,10 @@
+import 'package:hm_shop/constants/index.dart';
+import 'package:hm_shop/utils/DioRequest.dart';
+import 'package:hm_shop/viewmodels/User.dart';
+
+//封装登录接口请求
+Future<UserInfo> loginAPI(Map<String, dynamic> data) async {
+  return UserInfo.fromJSON(
+    await dioRequest.post(HttpConstants.LOGIN, data: data),
+  );
+}

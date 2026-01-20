@@ -40,7 +40,13 @@ class DioRequest {
         },
         //错误拦截器
         onError: (error, handler) {
-          return handler.next(error);
+          // return handler.next(error);
+          handler.reject(
+            DioException(
+              requestOptions: error.requestOptions,
+              message: error.response?.data["msg"] ?? " ",
+            ),
+          );
         },
       ),
     );
@@ -65,10 +71,15 @@ class DioRequest {
         //http状态和业务状态正常-能正常通过
         return data['result'];
       } else {
-        throw Exception(data['message']);
+        // throw Exception(data['message']);
+        throw DioException(
+          requestOptions: res.requestOptions,
+          message: data["msg"] ?? "加载数据失败",
+        );
       }
     } catch (e) {
-      throw Exception(e);
+      // throw Exception(e);
+      rethrow; //并没有改变原来抛出的异常的类型
     }
   }
 }
