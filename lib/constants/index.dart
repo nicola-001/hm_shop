@@ -24,4 +24,7 @@ class HttpConstants {
 
   //推荐列表
   static const String RECOMMEND_LIST = "/home/recommend";
+
+  //猜你喜欢
+  static const String GUESS_LIST = "/home/goods/guessLike"; //返回的是GoodsItems类型
 }
