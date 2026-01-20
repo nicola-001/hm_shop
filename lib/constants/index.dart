@@ -27,4 +27,7 @@ class HttpConstants {
 
   //猜你喜欢
   static const String GUESS_LIST = "/home/goods/guessLike"; //返回的是GoodsItems类型
+
+  //登录
+  static const String LOGIN = "/login";
 }

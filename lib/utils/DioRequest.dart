@@ -47,12 +47,17 @@ class DioRequest {
   }
 
   //封装get请求方法
-  Future<dynamic> get(String url, {Map<String, dynamic>? params}) {
-    return _dio.get(url, queryParameters: params);
+  Future<dynamic> get(String url, {Map<String, dynamic>? params}) async {
+    return _handleResponse(_dio.get(url, queryParameters: params));
+  }
+
+  //封装post请求方法
+  Future<dynamic> post(String url, {Map<String, dynamic>? data}) async {
+    return _handleResponse(_dio.post(url, data: data));
   }
 
   //进一步处理返回结果的函数
-  Future<dynamic> handleResponse<T>(Response<dynamic> task) async {
+  Future<dynamic> _handleResponse(Future<Response<dynamic>> task) async {
     try {
       Response<dynamic> res = await task;
       final data = res.data as Map<String, dynamic>;
@@ -67,4 +72,3 @@ class DioRequest {
     }
   }
 }
-

@@ -6,9 +6,7 @@ import 'package:hm_shop/viewmodels/Home.dart';
 //封装获取轮播图列表
 Future<List<BannerItem>> getBannerListAPI() async {
   //返回请求
-  var result = await dioRequest.handleResponse(
-    await dioRequest.get(HttpConstants.BANNER_LIST),
-  );
+  var result = await dioRequest.get(HttpConstants.BANNER_LIST);
   return (result as List).map((item) {
     return BannerItem.fromJson(item as Map<String, dynamic>);
   }).toList();
@@ -16,9 +14,7 @@ Future<List<BannerItem>> getBannerListAPI() async {
 
 //封装分类商品列表
 Future<List<CategoryItem>> getCategoryListAPI() async {
-  var result = await dioRequest.handleResponse(
-    await dioRequest.get(HttpConstants.CATEGORY_LIST),
-  );
+  var result = await dioRequest.get(HttpConstants.CATEGORY_LIST);
   return (result as List).map((item) {
     return CategoryItem.fromJson(item as Map<String, dynamic>);
   }).toList();
@@ -26,9 +22,7 @@ Future<List<CategoryItem>> getCategoryListAPI() async {
 
 //封装特惠推荐列表
 Future<SpecialRecommendResult> getProductListAPI() async {
-  var response = await dioRequest.handleResponse(
-    await dioRequest.get(HttpConstants.SPECIAL_RECOMMEND),
-  );
+  var response = await dioRequest.get(HttpConstants.SPECIAL_RECOMMEND);
 
   // API 返回的是单个对象，不是数组，所以需要包装成数组
   return SpecialRecommendResult.fromJson(response as Map<String, dynamic>);
@@ -37,31 +31,27 @@ Future<SpecialRecommendResult> getProductListAPI() async {
 //封装爆品推荐
 Future<SpecialRecommendResult> getInVogueListAPI() async {
   return SpecialRecommendResult.fromJson(
-    await dioRequest.handleResponse(
-      await dioRequest.get(HttpConstants.IN_VOGUE_LIST),
-    ),
+    await dioRequest.get(HttpConstants.IN_VOGUE_LIST),
   );
 }
 
 //封装一站买全
 Future<SpecialRecommendResult> getOneStopListAPI() async {
   return SpecialRecommendResult.fromJson(
-    await dioRequest.handleResponse(
-      await dioRequest.get(HttpConstants.ONE_SHOP_API),
-    ),
+    await dioRequest.get(HttpConstants.ONE_SHOP_API),
   );
 }
 
 //封装推荐列表
 Future<List<GoodDetailItem>> getRecommendListAPI(
-    Map<String, dynamic> params,
-    ) async {
+  Map<String, dynamic> params,
+) async {
   // 返回请求
-  var result = await dioRequest.handleResponse(
-    await dioRequest.get(HttpConstants.RECOMMEND_LIST, params: params),
+  var result = await dioRequest.get(
+    HttpConstants.RECOMMEND_LIST,
+    params: params,
   );
   return (result as List).map((item) {
     return GoodDetailItem.formJSON(item as Map<String, dynamic>);
   }).toList();
 }
-
