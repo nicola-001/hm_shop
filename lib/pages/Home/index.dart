@@ -5,7 +5,7 @@ import 'package:hm_shop/components/Home/HmMoreList.dart';
 import 'package:hm_shop/components/Home/HmSlider.dart';
 import 'package:hm_shop/components/Home/HmSuggestion.dart';
 import 'package:hm_shop/viewmodels/Home.dart';
-import '../../components/Home/HmHot.dart';
+import 'package:hm_shop/components/Home/HmHot.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -33,6 +33,7 @@ class _HomeViewState extends State<HomeView> {
     title: "",
     subTypes: [],
   );
+  List<GoodDetailItem> _recommendList = [];
 
   //获取轮播图数据
   void _getBannerList() async {
@@ -66,6 +67,12 @@ class _HomeViewState extends State<HomeView> {
     setState(() {});
   }
 
+  //获取推荐列表数据
+  void _getRecommendList() async {
+    _recommendList = await getRecommendListAPI({"limit": 10});
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
@@ -79,6 +86,8 @@ class _HomeViewState extends State<HomeView> {
     _getInVogueList();
     //获取一站买全数据列表
     _getOneStopList();
+    //获取推荐列表数据
+    _getRecommendList();
   }
 
   //获取滚动容器的内容
@@ -113,7 +122,6 @@ class _HomeViewState extends State<HomeView> {
               Expanded(
                 child: HmHot(result: _oneStopResult, type: "step"),
               ),
-
             ],
           ),
         ),
@@ -121,7 +129,7 @@ class _HomeViewState extends State<HomeView> {
       // 间距
       SliverToBoxAdapter(child: SizedBox(height: 10)),
       // 无限滚动列表
-      HmMoreList(),
+      HmMoreList(recommendList: _recommendList),
     ];
   }
 

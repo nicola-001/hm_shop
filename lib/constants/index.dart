@@ -21,4 +21,7 @@ class HttpConstants {
 
   //一站买全地址
   static const String ONE_SHOP_API = "/hot/oneStop";
+
+  //推荐列表
+  static const String RECOMMEND_LIST = "/home/recommend";
 }

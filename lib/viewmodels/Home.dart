@@ -91,12 +91,21 @@ class GoodsItems {
     required this.page,
     required this.items,
   });
+
   factory GoodsItems.fromJson(Map<String, dynamic> json) {
     return GoodsItems(
-      counts: json['counts'] is int ? json['counts'] : int.tryParse(json['counts']?.toString() ?? "0") ?? 0,
-      pageSize: json['pageSize'] is int ? json['pageSize'] : int.tryParse(json['pageSize']?.toString() ?? "0") ?? 0,
-      pages: json['pages'] is int ? json['pages'] : int.tryParse(json['pages']?.toString() ?? "0") ?? 0,
-      page: json['page'] is int ? json['page'] : int.tryParse(json['page']?.toString() ?? "0") ?? 0,
+      counts: json['counts'] is int
+          ? json['counts']
+          : int.tryParse(json['counts']?.toString() ?? "0") ?? 0,
+      pageSize: json['pageSize'] is int
+          ? json['pageSize']
+          : int.tryParse(json['pageSize']?.toString() ?? "0") ?? 0,
+      pages: json['pages'] is int
+          ? json['pages']
+          : int.tryParse(json['pages']?.toString() ?? "0") ?? 0,
+      page: json['page'] is int
+          ? json['page']
+          : int.tryParse(json['page']?.toString() ?? "0") ?? 0,
       items: (json['items'] as List? ?? [])
           .map((item) => GoodsItem.fromJson(item as Map<String, dynamic>))
           .toList(),
@@ -146,3 +155,29 @@ class SpecialRecommendResult {
   }
 }
 
+//列表项类型
+class GoodDetailItem extends GoodsItem {
+  int payCount = 0;
+
+  /// 商品详情项
+  GoodDetailItem({
+    required super.id,
+    required super.name,
+    required super.price,
+    required super.picture,
+    required super.orderNum,
+    required this.payCount,
+  }) : super(desc: "");
+
+  // 转化方法
+  factory GoodDetailItem.formJSON(Map<String, dynamic> json) {
+    return GoodDetailItem(
+      id: json["id"]?.toString() ?? "",
+      name: json["name"]?.toString() ?? "",
+      price: json["price"]?.toString() ?? "",
+      picture: json["picture"]?.toString() ?? "",
+      orderNum: int.tryParse(json["orderNum"]?.toString() ?? "0") ?? 0,
+      payCount: int.tryParse(json["payCount"]?.toString() ?? "0") ?? 0,
+    );
+  }
+}
