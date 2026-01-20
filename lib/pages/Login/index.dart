@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hm_shop/api/User.dart';
+import 'package:hm_shop/stores/UserController.dart';
 import 'package:hm_shop/utils/ToastUtils.dart';
 /*
 *
@@ -23,6 +25,8 @@ class _LoginPageState extends State<LoginPage> {
   // 用户账号Widget
 
   // 头部Widget
+  final Usercontroller _usercontroller = Get.find();
+
   Widget _buildHeader() {
     return Row(
       children: [
@@ -142,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
         "account": _phoneController.text,
         "password": _codeController.text,
       });
-      print(res);
+      _usercontroller.updateUser(res);
       Toastutils.showToast(context, "登录成功");
       Navigator.of(context).pop();
     } catch (e) {
