@@ -67,10 +67,35 @@ class _HomeViewState extends State<HomeView> {
     setState(() {});
   }
 
+  /*
+  * 1.使用原有接口实现2.监听滚动到底部事件3.同时只能加载一个请求4.如果没有下一页不能再发起请求
+  * */
   //获取推荐列表数据
+  // 页码
+  int _page = 1;
+
+  //是否正在加载数据
+  bool _isLoading = false;
+
+  // 判断是否还有下一页
+  bool _hasMore = true;
+
   void _getRecommendList() async {
-    _recommendList = await getRecommendListAPI({"limit": 10});
+    //当已经有请求正在加载 或 已经下一页 就放弃请求
+    if (_isLoading || !_hasMore) {
+      return;
+    }
+    _isLoading = true; //占住位置
+    int requestPage = _page * 8;
+    _recommendList = await getRecommendListAPI({"limit": requestPage});
+    _isLoading = false; //释放位置
     setState(() {});
+    _page++;
+    if (_recommendList.length < 8) {
+      //判断是否还有下一页
+      _hasMore = false;
+      return;
+    }
   }
 
   @override
@@ -88,6 +113,20 @@ class _HomeViewState extends State<HomeView> {
     _getOneStopList();
     //获取推荐列表数据
     _getRecommendList();
+
+    //监听注册事件
+    _registerEvent();
+  }
+
+  //监听滚动到底部的事件
+  void _registerEvent() {
+    _controller.addListener(() {
+      if (_controller.position.pixels >=
+          _controller.position.maxScrollExtent - 50) {
+        // 加载第二页数据
+        _getRecommendList();
+      }
+    });
   }
 
   //获取滚动容器的内容
@@ -133,8 +172,14 @@ class _HomeViewState extends State<HomeView> {
     ];
   }
 
+  final ScrollController _controller = ScrollController();
+
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(slivers: _getScrollChildren()); //sliver家族的内容
+    return CustomScrollView(
+      //绑定控制器
+      controller: _controller,
+      slivers: _getScrollChildren(),
+    ); //sliver家族的内容
   }
 }
