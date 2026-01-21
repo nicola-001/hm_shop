@@ -31,4 +31,7 @@ class HttpConstants {
 
   //登录
   static const String LOGIN = "/login";
+
+  //用户信息
+  static const String USER_PROFILE = "/member/profile";
 }

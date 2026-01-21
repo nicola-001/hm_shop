@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:hm_shop/pages/Home/index.dart';
 import 'package:hm_shop/pages/Mine/index.dart';
+import 'package:hm_shop/stores/TokenManager.dart';
+import 'package:hm_shop/stores/UserController.dart';
 
+import '../../api/User.dart';
 import '../Cart/index.dart';
 import '../Category/index.dart';
 
@@ -14,6 +19,25 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  @override
+  void initState() {
+    super.initState();
+    //初始化用户
+    _inituser();
+  }
+
+  final Usercontroller _usercontroller = Get.put(Usercontroller());
+
+  //初始化用户
+  Future<void> _inituser() async {
+    //判断token
+    await tokenManager.init();
+    if (tokenManager.getToken().isNotEmpty) {
+      //如果token有值就获取用户信息
+      _usercontroller.updateUser(await getUserInfoAPI());
+    }
+  }
+
   // 定义数据 根据数据进行渲染四个导航
   final List<Map<String, String>> _tabList = [
     {

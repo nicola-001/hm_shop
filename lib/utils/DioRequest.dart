@@ -1,6 +1,7 @@
 //基于Dio进行二次封装
 import 'package:dio/dio.dart';
 import 'package:hm_shop/constants/index.dart';
+import 'package:hm_shop/stores/TokenManager.dart';
 
 // dio请求工具发出请求 返回的数据 Response<dynamic>.data
 // 把所有的接口的data解放出来 拿到真正的数据 要判断业务状态码是不是等于1
@@ -27,6 +28,11 @@ class DioRequest {
       InterceptorsWrapper(
         //请求拦截器
         onRequest: (request, handler) {
+          //注入token
+          if (tokenManager.getToken().isNotEmpty) {
+            request.headers["Authorization"] =
+                "Bearer ${tokenManager.getToken()}";
+          }
           return handler.next(request);
         },
         //响应拦截器
