@@ -18,7 +18,7 @@ class LogingDialog {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  CircularProgressIndicator(),
+                  CircularProgressIndicator(),//加载动画
                   SizedBox(height: 10),
                   Text(message!),
                 ],
