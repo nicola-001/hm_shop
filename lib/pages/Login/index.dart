@@ -5,6 +5,8 @@ import 'package:hm_shop/api/User.dart';
 import 'package:hm_shop/stores/TokenManager.dart';
 import 'package:hm_shop/stores/UserController.dart';
 import 'package:hm_shop/utils/ToastUtils.dart';
+
+import '../../utils/LogingDialog.dart';
 /*
 *
 * 1.Form组件=>TextFormField 可实现表单校验
@@ -142,6 +144,7 @@ class _LoginPageState extends State<LoginPage> {
 
   // 登录逻辑
   void _login() async {
+    LogingDialog.show(context, message: "登录中...");
     try {
       final res = await loginAPI({
         "account": _phoneController.text,
